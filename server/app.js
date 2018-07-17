@@ -20,8 +20,8 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
+// prettier-ignore
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(err.status || 500);
   res.json({ code: err.status, message: err.message });
 });
