@@ -1,0 +1,15 @@
+header {
+  min-height: 90px;
+  background-color: rgb(222, 65, 27);
+  width: 100%;
+  h1 {
+    display: inline-block;
+    margin: 15px 0 0 15px !important;
+    width: 150px;
+    img {
+      max-width: 100%;
+      vertical-align: middle;
+      border-style: none;
+    }
+  }
+}
