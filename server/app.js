@@ -2,10 +2,16 @@ const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
 
+const HardCodedUsersStragegy = require('./config/passport/hardcoded-users');
+const JwtStrategy = require('./config/passport/jwt');
 const indexRouter = require('./routes/index');
 
 const app = express();
+
+passport.use(new HardCodedUsersStragegy());
+passport.use(new JwtStrategy());
 
 app.use(logger('dev'));
 app.use(express.json());
