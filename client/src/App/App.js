@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import Header from '../Header/Header';
-import Main from '../Main/Main';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../store';
+import AuthenticatedRoute from '../AuthenticatedRoute';
+import Login from '../Login/Login';
+import Home from '../Home/Home';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Header />
-        <Main />
-      </div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <AuthenticatedRoute path="/" component={Home} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
