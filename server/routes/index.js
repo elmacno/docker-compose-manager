@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const { docker } = require('../services/docker');
 
 const router = express.Router();
 
@@ -17,8 +18,13 @@ router.post('/login', (req, res) => {
   })(req, res);
 });
 
-router.get('/', passport.authenticate('jwt'), (req, res) => {
-  res.json({ page: 'index', contents: { title: 'Express' } });
+router.get('/containers', passport.authenticate('jwt'), async (req, res) => {
+  try {
+    let containers = await docker.listContainers();
+    res.json(containers);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 module.exports = router;

@@ -1,15 +1,10 @@
-// This is used to determine if a user is authenticated and
-// if they are allowed to visit the page they navigated to.
-
-// If they are: they proceed to the page
-// If not: they are redirected to the login page.
 import React from 'react';
-//import AuthService from './Services/AuthService'
+import PropTypes from 'prop-types';
+import AuthService from './Services/AuthService';
 import { Redirect, Route } from 'react-router-dom';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
-  // Add your own authentication on the below line.
-  const isLoggedIn = false; // AuthService.isLoggedIn()
+  const isLoggedIn = AuthService.isLoggedIn();
 
   return (
     <Route
@@ -25,6 +20,11 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => {
       }
     />
   );
+};
+
+AuthenticatedRoute.propTypes = {
+  component: PropTypes.any.isRequired,
+  location: PropTypes.object
 };
 
 export default AuthenticatedRoute;

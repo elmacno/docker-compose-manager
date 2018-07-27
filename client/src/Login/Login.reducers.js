@@ -1,9 +1,13 @@
-const login = (state = {}, action) => {
+const defaultState = {
+  isLoggedIn: false
+};
+
+const login = (state = defaultState, action) => {
   switch (action.type) {
-    case 'VALUE':
+    case 'LOGGED_IN':
       return {
         ...state,
-        value: action.payload
+        isLoggedIn: action.payload
       };
     default:
       return state;

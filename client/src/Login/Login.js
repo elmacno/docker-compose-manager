@@ -1,14 +1,42 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import './Login.css';
 import LoginForm from './Login.form';
+import { addProps } from './Login.props';
+import AuthService from '../Services/AuthService';
 
 class Login extends Component {
-  submit = values => {
-    console.log(values);
+  propTypes = {
+    location: PropTypes.object,
+    loggedIn: PropTypes.func,
+    isLoggedIn: PropTypes.bool
   };
+
+  submit = async values => {
+    try {
+      await AuthService.logIn(
+        values.username,
+        values.password,
+        values.remember
+      );
+      this.props.loggedIn(AuthService.isLoggedIn());
+    } catch (error) {
+      this.setState({ error: 'Invalid username or password' });
+    }
+  };
+
+  componentDidMount() {
+    this.props.loggedIn(AuthService.isLoggedIn());
+  }
+
   render() {
-    return (
+    const { isLoggedIn } = this.props;
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    return isLoggedIn ? (
+      <Redirect to={from} />
+    ) : (
       <Container fluid>
         <Row>
           <Col md="4" className="banner-sec">
@@ -39,4 +67,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default addProps(Login);

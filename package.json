@@ -33,5 +33,9 @@
       "git add"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "babel-eslint": "^8.2.6",
+    "js-cookies": "^1.0.4",
+    "unfetch": "^3.1.0"
+  }
 }
