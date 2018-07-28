@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AuthService from './Services/AuthService';
 import { Redirect, Route } from 'react-router-dom';
+import AuthService from '../Services/AuthService';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   const isLoggedIn = AuthService.isLoggedIn();

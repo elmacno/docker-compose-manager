@@ -13,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
-import Fetch from '../Services/Fetch';
+import { Fetch } from '../../Services';
 import { addProps } from './Home.props';
 import './Home.css';
 

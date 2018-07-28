@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import './Login.css';
 import LoginForm from './Login.form';
 import { addProps } from './Login.props';
-import AuthService from '../Services/AuthService';
+import { AuthService } from '../../Services';
 
 class Login extends Component {
   static propTypes = {
