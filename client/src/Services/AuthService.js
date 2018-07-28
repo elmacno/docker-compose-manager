@@ -7,20 +7,23 @@ export default class AuthService {
   }
 
   static async logIn(username, password, remember) {
-    let response = await Fetch('/login', {
-      method: 'POST',
-      body: JSON.stringify({ username, password })
-    });
-    if (!response.ok) {
-      throw new Error(response.json());
+    let response;
+    try {
+      response = await Fetch('/login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password })
+      });
+      const days = remember ? 7 : 1;
+      Cookies.setItem('token', JSON.stringify({ token: response.token }), {
+        expires: days
+      });
+      Cookies.setItem(
+        'profile',
+        JSON.stringify({ username: username, rights: response.rights }),
+        { expires: days }
+      );
+    } catch (error) {
+      throw error;
     }
-    let body = await response.json();
-    const days = remember ? 7 : 1;
-    Cookies.setItem('token', body.token, { expires: days });
-    Cookies.setItem(
-      'profile',
-      { username: username, rights: body.rights },
-      { expires: days }
-    );
   }
 }

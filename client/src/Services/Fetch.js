@@ -8,10 +8,10 @@ const Fetch = async (url, options) => {
     'Content-Type': 'application/json'
   };
 
-  let token = Cookies.getItem('token');
+  let token = JSON.parse(Cookies.getItem('token'));
   // Add authorization header if a valid token is available
-  if (token) {
-    headers['Authorization'] = 'Bearer ' + token;
+  if (token && token.token) {
+    headers['Authorization'] = 'Bearer ' + token.token;
   }
 
   let response = await fetch(url, { ...options, headers });

@@ -1,5 +1,5 @@
 const defaultState = {
-  containers: {}
+  containers: []
 };
 
 const home = (state = defaultState, action) => {

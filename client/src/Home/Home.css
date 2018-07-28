@@ -1,0 +1,20 @@
+header {
+  background-color: rgb(94, 158, 231);
+}
+
+header a {
+  color: white;
+}
+
+header a:hover {
+  color: rgb(175, 175, 175);
+}
+
+header a:visited {
+  color: white;
+}
+
+.brand-icon {
+  width: 50px;
+  margin-right: 10px;
+}

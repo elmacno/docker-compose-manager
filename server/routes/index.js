@@ -18,13 +18,17 @@ router.post('/login', (req, res) => {
   })(req, res);
 });
 
-router.get('/containers', passport.authenticate('jwt'), async (req, res) => {
-  try {
-    let containers = await docker.listContainers();
-    res.json(containers);
-  } catch (error) {
-    res.status(500).json(error);
+router.get(
+  '/containers',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      let containers = await docker.listContainers();
+      res.json(containers);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
-});
+);
 
 module.exports = router;

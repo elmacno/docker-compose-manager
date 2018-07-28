@@ -8,7 +8,7 @@ import { addProps } from './Login.props';
 import AuthService from '../Services/AuthService';
 
 class Login extends Component {
-  propTypes = {
+  static propTypes = {
     location: PropTypes.object,
     loggedIn: PropTypes.func,
     isLoggedIn: PropTypes.bool
