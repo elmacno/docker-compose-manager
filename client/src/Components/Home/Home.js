@@ -1,98 +1,67 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from 'reactstrap';
+import { Container } from 'reactstrap';
 import { Fetch } from '../../Services';
 import { addProps } from './Home.props';
+import Header from '../Header';
+import Footer from '../Footer';
+import ContainersTable from './ContainersTable';
+import dockerQuestion from '../../Assets/docker-question.svg';
 import './Home.css';
 
 class Home extends Component {
   static propTypes = {
-    containers: PropTypes.array,
-    setContainers: PropTypes.func
+    availableContainers: PropTypes.array,
+    runningContainers: PropTypes.array,
+    setAvailableContainers: PropTypes.func,
+    setRunningContainers: PropTypes.func
   };
 
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  async componentDidMount() {
+  getAvailableContainers = async () => {
     try {
       let containers = await Fetch('/containers');
-      this.props.setContainers(containers);
+      this.props.setAvailableContainers(containers);
     } catch (error) {
       let errorMessage = await error;
       console.error('Failed to get the containers:', errorMessage);
     }
+  };
+
+  getRunningContainers = async () => {
+    try {
+      let containers = await Fetch('/containers/running');
+      this.props.setRunningContainers(containers);
+    } catch (error) {
+      let errorMessage = await error;
+      console.error('Failed to get the containers:', errorMessage);
+    }
+  };
+
+  async componentDidMount() {
+    await this.getAvailableContainers();
+    await this.getRunningContainers();
   }
 
   render() {
     return (
-      <div>
-        <header>
-          <Navbar expand="md">
-            <NavbarBrand href="/">
-              <img src="docker.svg" className="brand-icon" />
-              Docker Compose Manager
-            </NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="/components/">Components</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">
-                    GitHub
-                  </NavLink>
-                </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    Options
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>Option 1</DropdownItem>
-                    <DropdownItem>Option 2</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>Reset</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </Nav>
-            </Collapse>
-          </Navbar>
-        </header>
-        <main />
-        <footer />
-        <p> This is the Home page </p>
-        <div>
-          {this.props.containers.length === 0 ? (
-            <p> There are no containers </p>
-          ) : (
-            <p> There are {this.props.containers.length} containers</p>
-          )}
-        </div>
+      <div className="home-page">
+        <Header />
+        <main>
+          <Container>
+            {this.props.runningContainers.length === 0 ? (
+              <div className="text-center">
+                <img src={dockerQuestion} className="d-block mx-auto" />
+                <p>
+                  There are no containers running. Try importing a configuration
+                  file.
+                </p>
+              </div>
+            ) : (
+              <ContainersTable containers={this.props.runningContainers} />
+            )}
+          </Container>
+        </main>
+        <Footer />
       </div>
     );
   }

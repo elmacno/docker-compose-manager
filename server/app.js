@@ -6,7 +6,9 @@ const passport = require('passport');
 
 const HardCodedUsersStragegy = require('./config/passport/hardcoded-users');
 const JwtStrategy = require('./config/passport/jwt');
-const indexRouter = require('./routes/index');
+const { requireAuthentication } = require('./config/passport/helpers');
+const { sessionsRouter } = require('./app/Sessions/Sessions.router');
+const { containersRouter } = require('./app/Containers/Containers.router');
 
 const app = express();
 
@@ -19,7 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(passport.initialize());
-app.use('/', indexRouter);
+app.use('/sessions', sessionsRouter);
+app.use('/containers', requireAuthentication, containersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

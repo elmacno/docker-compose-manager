@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
-import './Login.css';
 import LoginForm from './Login.form';
 import { addProps } from './Login.props';
 import { AuthService } from '../../Services';
+import dockerLogo from '../../Assets/docker.svg';
+import './Login.css';
 
 class Login extends Component {
   static propTypes = {
@@ -37,11 +38,11 @@ class Login extends Component {
     return isLoggedIn ? (
       <Redirect to={from} />
     ) : (
-      <Container fluid>
+      <Container fluid className="login-page">
         <Row>
           <Col md="4" className="banner-sec">
             <h1>
-              <img src="/docker.svg" alt="Docker Compose Manager" />
+              <img src={dockerLogo} alt="Docker Compose Manager" />
             </h1>
             <div className="d-block">
               <div className="banner-text">

@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   return {
-    containers: state.home.containers
+    availableContainers: state.home.availableContainers,
+    runningContainers: state.home.runningContainers
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setContainers: containers =>
-        dispatch({ type: 'CONTAINERS', payload: containers })
+      setAvailableContainers: containers =>
+        dispatch({ type: 'AVAILABLE_CONTAINERS', payload: containers }),
+      setRunningContainers: containers =>
+        dispatch({ type: 'RUNNING_CONTAINERS', payload: containers })
     },
     dispatch
   );

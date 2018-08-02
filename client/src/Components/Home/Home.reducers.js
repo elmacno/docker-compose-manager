@@ -1,13 +1,19 @@
 const defaultState = {
-  containers: []
+  availableContainers: [],
+  runningContainers: []
 };
 
 const home = (state = defaultState, action) => {
   switch (action.type) {
-    case 'CONTAINERS':
+    case 'AVAILABLE_CONTAINERS':
       return {
         ...state,
-        containers: action.payload
+        availableContainers: action.payload
+      };
+    case 'RUNNING_CONTAINERS':
+      return {
+        ...state,
+        runningContainers: action.payload
       };
     default:
       return state;

@@ -9,7 +9,7 @@ export default class AuthService {
   static async logIn(username, password, remember) {
     let response;
     try {
-      response = await Fetch('/login', {
+      response = await Fetch('/sessions/signin', {
         method: 'POST',
         body: JSON.stringify({ username, password })
       });
