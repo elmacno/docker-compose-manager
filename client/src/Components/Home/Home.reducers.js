@@ -1,23 +1,23 @@
+import { combineReducers } from 'redux';
+import projectsList from './ProjectsList/ProjectsList.reducers';
+
 const defaultState = {
-  availableContainers: [],
-  runningContainers: []
+  projects: []
 };
 
-const home = (state = defaultState, action) => {
+const base = (state = defaultState, action) => {
   switch (action.type) {
-    case 'AVAILABLE_CONTAINERS':
+    case 'PROJECTS':
       return {
         ...state,
-        availableContainers: action.payload
-      };
-    case 'RUNNING_CONTAINERS':
-      return {
-        ...state,
-        runningContainers: action.payload
+        projects: action.payload
       };
     default:
       return state;
   }
 };
 
-export default home;
+export default combineReducers({
+  base,
+  projectsList
+});

@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   return {
-    projects: state.home.base.projects
+    expandedProjects: state.home.projectsList.base.expandedProjects
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setProjects: projects => dispatch({ type: 'PROJECTS', payload: projects })
+      expandProject: project =>
+        dispatch({ type: 'EXPAND_PROJECT', payload: project }),
+      collapseProject: project =>
+        dispatch({ type: 'COLLAPSE_PROJECT', payload: project })
     },
     dispatch
   );

@@ -1,0 +1,31 @@
+.containers-table {
+  td {
+    white-space: nowrap;
+  }
+  .command {
+    font-family: monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: #313131;
+    color: #a5a5a5;
+  }
+  .ports {
+    display: flex;
+    align-items: center;
+    .port-type {
+      font-family: monospace;
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 3px;
+      background-color: #313131;
+      color: #a5a5a5;
+      margin-right: 2px;
+    }
+    svg {
+      margin: 0 2px;
+    }
+  }
+}

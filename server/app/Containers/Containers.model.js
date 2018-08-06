@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-class ContainerConfig {
+class ComposeProjects {
   constructor() {
     this.baseDir = process.env.BASE_DIR;
   }
@@ -20,6 +20,7 @@ class ContainerConfig {
               return {
                 fullPath: file,
                 fileName: path.basename(file),
+                projectName: path.basename(path.dirname(file)),
                 provides: Object.keys(config.services),
                 raw: config
               };
@@ -32,5 +33,5 @@ class ContainerConfig {
 }
 
 module.exports = {
-  ContainerConfig: new ContainerConfig()
+  ComposeProjects: new ComposeProjects()
 };

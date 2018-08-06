@@ -5,60 +5,58 @@ import { Fetch } from '../../Services';
 import { addProps } from './Home.props';
 import Header from '../Header';
 import Footer from '../Footer';
-import ContainersTable from './ContainersTable';
-import dockerQuestion from '../../Assets/docker-question.svg';
+import ProjectsList from './ProjectsList';
+//import dockerQuestion from '../../Assets/docker-question.svg';
 import './Home.css';
 
 class Home extends Component {
   static propTypes = {
-    availableContainers: PropTypes.array,
-    runningContainers: PropTypes.array,
-    setAvailableContainers: PropTypes.func,
-    setRunningContainers: PropTypes.func
+    projects: PropTypes.arrayOf(PropTypes.string),
+    setProjects: PropTypes.func
   };
 
-  getAvailableContainers = async () => {
+  getProjects = async () => {
     try {
-      let containers = await Fetch('/containers');
-      this.props.setAvailableContainers(containers);
+      let projects = await Fetch('/projects');
+      this.props.setProjects(projects);
     } catch (error) {
       let errorMessage = await error;
-      console.error('Failed to get the containers:', errorMessage);
-    }
-  };
-
-  getRunningContainers = async () => {
-    try {
-      let containers = await Fetch('/containers/running');
-      this.props.setRunningContainers(containers);
-    } catch (error) {
-      let errorMessage = await error;
-      console.error('Failed to get the containers:', errorMessage);
+      console.error('Failed to get the available projects:', errorMessage);
     }
   };
 
   async componentDidMount() {
-    await this.getAvailableContainers();
-    await this.getRunningContainers();
+    await this.getProjects();
   }
 
   render() {
+    const { projects } = this.props;
     return (
       <div className="home-page">
         <Header />
         <main>
           <Container>
-            {this.props.runningContainers.length === 0 ? (
+            <h2 className="text-center">Available Projects</h2>
+            <ProjectsList projects={projects} />
+            {/* {this.props.runningContainers.length === 0 ? (
               <div className="text-center">
                 <img src={dockerQuestion} className="d-block mx-auto" />
                 <p>
-                  There are no containers running. Try importing a configuration
-                  file.
+                  There are no containers running.
                 </p>
               </div>
             ) : (
-              <ContainersTable containers={this.props.runningContainers} />
+              <div>
+                <h2 className="text-center">Running containers</h2>
+                <ContainersTable containers={this.props.runningContainers} projects={this.props.composeProjects}/>
+              </div>
             )}
+            <h2 className="text-center">Compose projects</h2>
+            <ul>
+              {this.props.composeProjects.map(project => (
+                <li key={project.fullPath}>{project.fullPath}</li>
+              ))}
+            </ul> */}
           </Container>
         </main>
         <Footer />

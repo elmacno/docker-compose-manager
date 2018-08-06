@@ -3,11 +3,13 @@ const containersRouter = express.Router();
 
 const {
   getAllContainers,
-  getAvailableContainers
+  getRunningContainers,
+  getComposeProjects
 } = require('./Containers.controller');
 
-containersRouter.get('/', getAvailableContainers);
-containersRouter.get('/running', getAllContainers);
+containersRouter.get('/projects', getComposeProjects);
+containersRouter.get('/running', getRunningContainers);
+containersRouter.get('/all', getAllContainers);
 
 module.exports = {
   containersRouter

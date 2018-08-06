@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './ContainersTable.css';
 
 class ContainersTable extends Component {
@@ -21,7 +22,7 @@ class ContainersTable extends Component {
         ),
         Names: PropTypes.arrayOf(PropTypes.string)
       })
-    )
+    ).isRequired
   };
 
   render() {
@@ -60,9 +61,15 @@ class ContainersTable extends Component {
               <td>{container.Status}</td>
               <td>
                 {container.Ports.map((forward, index) => (
-                  <p key={index}>
-                    {forward.PublicPort ? `${forward.PublicPort} -> ` : ''}
-                    {forward.PrivatePort}/{forward.Type}
+                  <p key={index} className="ports">
+                    <span className="port-type">{forward.Type}</span>
+                    {forward.PublicPort ? forward.PublicPort : ''}
+                    {forward.PublicPort ? (
+                      <FontAwesomeIcon icon="arrow-right" />
+                    ) : (
+                      ''
+                    )}
+                    {forward.PrivatePort}
                   </p>
                 ))}
               </td>
