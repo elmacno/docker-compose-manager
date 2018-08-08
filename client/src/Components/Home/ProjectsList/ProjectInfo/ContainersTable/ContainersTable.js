@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './ContainersTable.css';
 
@@ -38,6 +38,7 @@ class ContainersTable extends Component {
             <th>Status</th>
             <th>Ports</th>
             <th>Names</th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -77,6 +78,17 @@ class ContainersTable extends Component {
                 {container.Names.map((name, index) => (
                   <p key={index}>{name.slice(1)}</p>
                 ))}
+              </td>
+              <td className="no-wrap">
+                <a href={`/projects/${container.Id}/stats`}>
+                  <div className="container-properties text-center"><FontAwesomeIcon icon="chart-bar" /></div>
+                </a>
+                <a href={`/projects/${container.Id}/logs`}>
+                  <div className="container-properties text-center"><FontAwesomeIcon icon="file-alt" /></div>
+                </a>
+                <a href={`/projects/${container.Id}/terminal`}>
+                  <div className="container-properties text-center"><FontAwesomeIcon icon="terminal" /></div>
+                </a>
               </td>
             </tr>
           ))}

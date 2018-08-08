@@ -1,0 +1,10 @@
+@import '../../Styles/variables.scss';
+
+.project-page {
+  height: 100%;
+
+  main {
+    overflow: auto;
+    min-height: calc(100% - (#{$min-header-height} + #{$min-footer-height}));
+  }
+}

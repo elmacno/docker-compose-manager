@@ -1,7 +1,12 @@
 .project-info {
-  button {
-    svg {
-      margin-right: 5px;
+  .container-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+
+    span {
+      margin-left: 5px;
     }
   }
 }

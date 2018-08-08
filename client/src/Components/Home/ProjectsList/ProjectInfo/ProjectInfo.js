@@ -97,9 +97,9 @@ class ProjectInfo extends Component {
         )}
         <div className="text-right">
           <ButtonGroup>
-            <Button color="success" disabled={hasContainers} onClick={this.handleStart}><FontAwesomeIcon icon="play-circle" />Start</Button>
-            <Button disabled={!hasContainers} onClick={this.handleRestart}><FontAwesomeIcon icon="sync-alt" />Restart</Button>
-            <Button color="danger" disabled={!hasContainers} onClick={this.handleStop}><FontAwesomeIcon icon="times" />Stop</Button>
+            <Button className="container-action" color="success" disabled={hasContainers} onClick={this.handleStart}><FontAwesomeIcon icon="play-circle" /><span>Start</span></Button>
+            <Button className="container-action" disabled={!hasContainers} onClick={this.handleRestart}><FontAwesomeIcon icon="sync-alt" /><span>Restart</span></Button>
+            <Button className="container-action" color="danger" disabled={!hasContainers} onClick={this.handleStop}><FontAwesomeIcon icon="times" /><span>Stop</span></Button>
           </ButtonGroup>
         </div>
       </CardBody>

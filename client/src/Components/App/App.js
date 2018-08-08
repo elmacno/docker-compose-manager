@@ -5,6 +5,7 @@ import { store } from '../../Services/Store';
 import { AuthenticatedRoute } from '../../Helpers';
 import Login from '../Login';
 import Home from '../Home';
+import Project from '../Project';
 
 class App extends Component {
   render() {
@@ -13,7 +14,8 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/login" component={Login} />
-            <AuthenticatedRoute path="/" component={Home} />
+            <AuthenticatedRoute exact path="/" component={Home} />
+            <AuthenticatedRoute path="/projects/:id" component={Project} />
           </Switch>
         </BrowserRouter>
       </Provider>
