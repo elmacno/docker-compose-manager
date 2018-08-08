@@ -44,7 +44,7 @@ class ContainersTable extends Component {
           {containers.map(container => (
             <tr key={container.Id}>
               <th scope="row">{container.Id.slice(0, 12)}</th>
-              <td>{container.Image}</td>
+              <td className="no-wrap">{container.Image}</td>
               <td>
                 <p className="command">{container.Command}</p>
               </td>
@@ -73,7 +73,7 @@ class ContainersTable extends Component {
                   </p>
                 ))}
               </td>
-              <td>
+              <td className="no-wrap">
                 {container.Names.map((name, index) => (
                   <p key={index}>{name.slice(1)}</p>
                 ))}

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CardBody } from 'reactstrap';
+import { CardBody, CardTitle, CardText, Button, ButtonGroup } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fetch } from '../../../../Services';
 import { addProps } from './ProjectInfo.props';
 import ContainersTable from './ContainersTable';
+import './ProjectInfo.css';
 
 class ProjectInfo extends Component {
   static propTypes = {
@@ -42,19 +44,64 @@ class ProjectInfo extends Component {
     }
   };
 
-  async componentDidMount() {
-    await this.getRunningContainers();
+  handleStart = async () => {
+    console.log('in handleStart()');
+    const { projectName } = this.props;
+    try {
+      await Fetch(`/projects/${projectName}/up`);
+    } catch(error) {
+      console.error(`Could not start ${projectName}:`, await error);
+    }
+  }
+
+  handleRestart = async () => {
+    console.log('in handleRestart()');
+    const { projectName } = this.props;
+    try {
+      await Fetch(`/projects/${projectName}/restart`);
+    } catch(error) {
+      console.error(`Could not restart ${projectName}:`, await error);
+    }
+  }
+
+  handleStop = async () => {
+    console.log('in handleStop()');
+    const { projectName } = this.props;
+    try {
+      await Fetch(`/projects/${projectName}/down`);
+    } catch(error) {
+      console.error(`Could not stop ${projectName}:`, await error);
+    }
+  }
+
+  componentDidMount() {
+    let refresher = () => {
+      this.getRunningContainers();
+      setTimeout(refresher, 5000);
+    }
+    refresher();
   }
 
   render() {
     const { containers } = this.props;
+    const hasContainers = containers && containers.length > 0;
     return (
-      <CardBody>
+      <CardBody className="project-info">
         {containers && containers.length !== 0 ? (
-          <ContainersTable containers={containers} />
+          <div>
+            <CardTitle>Running containers</CardTitle>
+            <ContainersTable containers={containers} />
+          </div>
         ) : (
-          'No running containers'
+          <CardText>No running containers</CardText>
         )}
+        <div className="text-right">
+          <ButtonGroup>
+            <Button color="success" disabled={hasContainers} onClick={this.handleStart}><FontAwesomeIcon icon="play-circle" />Start</Button>
+            <Button disabled={!hasContainers} onClick={this.handleRestart}><FontAwesomeIcon icon="sync-alt" />Restart</Button>
+            <Button color="danger" disabled={!hasContainers} onClick={this.handleStop}><FontAwesomeIcon icon="times" />Stop</Button>
+          </ButtonGroup>
+        </div>
       </CardBody>
     );
   }

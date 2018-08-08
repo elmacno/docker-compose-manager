@@ -1,7 +1,9 @@
+@import '../../Styles/variables.scss';
+
 .footer {
   background-color: rgb(94, 158, 231);
-  min-height: 50px;
-  line-height: 50px;
+  min-height: $min-footer-height;
+  line-height: $min-footer-height;
   color: white;
   font-size: 0.8rem;
 

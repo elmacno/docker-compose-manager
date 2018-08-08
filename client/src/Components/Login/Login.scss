@@ -1,89 +1,86 @@
 @import url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 
-html,
-body,
-#root,
-#root > div,
-#root > .login-page > .row {
-  height: 100%;
-}
-
 .login-page {
-  .login-block {
-    background: rgb(94, 158, 231); /* fallback for old browsers */
-    float: left;
-    width: 100%;
-    padding: 50px 0;
-  }
+  height: 100%;
 
-  .login-sec {
-    padding: 50px 30px;
-    position: relative;
-    flex-direction: column;
-
-    .copy-text {
-      max-width: 400px;
-      bottom: 20px;
-      font-size: 13px;
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
+  .row {
+    height: 100%;
+    .login-block {
+      background: rgb(94, 158, 231); /* fallback for old browsers */
+      float: left;
+      width: 100%;
+      padding: 50px 0;
     }
 
-    .login-form-container {
-      width: 100%;
-      flex: 1;
+    .login-sec {
+      padding: 50px 30px;
+      position: relative;
+      flex-direction: column;
 
-      h2 {
-        display: block;
-        margin: 100px auto 30px !important;
-        margin-bottom: 30px;
-        font-weight: 800;
-        font-size: 30px;
-        color: rgb(78, 73, 73);
-      }
-
-      .login-form {
+      .copy-text {
         max-width: 400px;
+        bottom: 20px;
+        font-size: 13px;
+        text-align: center;
         margin-left: auto;
         margin-right: auto;
       }
-    }
-  }
 
-  .btn-login {
-    background: rgb(88, 141, 255);
-    color: white;
-    font-weight: 600;
-  }
+      .login-form-container {
+        width: 100%;
+        flex: 1;
 
-  .banner-sec {
-    background: rgb(88, 141, 255);
+        h2 {
+          display: block;
+          margin: 100px auto 30px !important;
+          margin-bottom: 30px;
+          font-weight: 800;
+          font-size: 30px;
+          color: rgb(78, 73, 73);
+        }
 
-    h1 {
-      display: block;
-      margin: 100px auto 30px !important;
-      width: 60%;
-
-      img {
-        max-width: 100%;
+        .login-form {
+          max-width: 400px;
+          margin-left: auto;
+          margin-right: auto;
+        }
       }
     }
-  }
 
-  .banner-text {
-    text-align: center;
-
-    h6 {
+    .btn-login {
+      background: rgb(88, 141, 255);
       color: white;
-      font-size: 18px;
+      font-weight: 600;
+    }
 
-      span {
+    .banner-sec {
+      background: rgb(88, 141, 255);
+
+      h1 {
         display: block;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-top: 5px;
-        font-size: 24px;
+        margin: 100px auto 30px !important;
+        width: 60%;
+
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .banner-text {
+      text-align: center;
+
+      h6 {
+        color: white;
+        font-size: 18px;
+
+        span {
+          display: block;
+          font-weight: 600;
+          text-transform: uppercase;
+          margin-top: 5px;
+          font-size: 24px;
+        }
       }
     }
   }

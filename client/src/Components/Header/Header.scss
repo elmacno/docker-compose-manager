@@ -1,5 +1,7 @@
+@import '../../Styles/variables.scss';
+
 header {
-  min-height: 76px;
+  min-height: $min-header-height;
   background-color: rgb(94, 158, 231);
 
   .brand-icon {
