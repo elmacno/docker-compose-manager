@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
+const path = require('path');
 
 const HardCodedUsersStragegy = require('./config/passport/hardcoded-users');
 const JwtStrategy = require('./config/passport/jwt');
@@ -20,11 +21,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../client/build')))
 
 app.use(passport.initialize());
 app.use('/sessions', sessionsRouter);
 app.use('/containers', requireAuthentication, containersRouter);
 app.use('/projects', requireAuthentication, projectsRouter);
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+})
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

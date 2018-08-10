@@ -35,7 +35,7 @@ class Header extends Component {
       <header>
         <Navbar dark expand="md">
           <NavbarBrand href="/">
-            <img src={dockerLogo} className="brand-icon" />
+            <img src={dockerLogo} className="brand-icon" alt="Docker Compose Manager" />
             Docker Compose Manager
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />

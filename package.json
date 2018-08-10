@@ -8,7 +8,8 @@
     "dev:server": "cd server && npm run dev",
     "dev": "concurrently --kill-others-on-fail 'npm run dev:server' 'npm run dev:client'",
     "lint": "eslint .",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "start": "cd client && npm run build && cd ../server && npm start"
   },
   "keywords": [],
   "author": "",

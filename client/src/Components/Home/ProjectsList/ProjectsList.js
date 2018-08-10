@@ -40,7 +40,7 @@ class ProjectsList extends Component {
         {projects.map((project, index) => (
           <Card key={index}>
             <CardHeader onClick={this.toggleProject} data-event={project}>
-              <img src={dockerLogo} />
+              <img src={dockerLogo} alt={project} />
               {project}
             </CardHeader>
             <Collapse isOpen={this.isProjectExpanded(project)}>
