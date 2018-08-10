@@ -16,9 +16,9 @@ const Project = ({match}) => {
       <main>
         <Container>
           <Switch>
-            <Route path={`${match.url}/stats`} component={ProjectStats} />
-            <Route path={`${match.url}/logs`} component={ProjectLogs} />
-            <Route path={`${match.url}/terminal`} component={ProjectTerminal} />
+            <Route path="/projects/:id/stats" component={ProjectStats} />
+            <Route path="/projects/:id/logs" component={ProjectLogs} />
+            <Route path="/projects/:id/terminal" component={ProjectTerminal} />
           </Switch>
         </Container>
       </main>

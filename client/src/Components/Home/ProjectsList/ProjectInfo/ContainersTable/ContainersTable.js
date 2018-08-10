@@ -28,7 +28,7 @@ class ContainersTable extends Component {
   render() {
     const { containers } = this.props;
     return (
-      <Table hover className="containers-table">
+      <Table hover responsive className="containers-table">
         <thead>
           <tr>
             <th>Id</th>
