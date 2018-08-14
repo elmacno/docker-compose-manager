@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import {
   Collapse,
   Navbar,
@@ -8,6 +9,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import { AuthService } from '../../Services';
 import dockerLogo from '../../Assets/docker.svg';
 import './Header.css';
 
@@ -26,8 +28,9 @@ class Header extends Component {
     });
   };
 
-  handleSignOut = () => {
-    alert('Signed out (Not really :P)');
+  handleSignOut = async () => {
+    await AuthService.logOut();
+    this.props.history.push('/');
   };
 
   render() {
@@ -35,7 +38,11 @@ class Header extends Component {
       <header>
         <Navbar dark expand="md">
           <NavbarBrand href="/">
-            <img src={dockerLogo} className="brand-icon" alt="Docker Compose Manager" />
+            <img
+              src={dockerLogo}
+              className="brand-icon"
+              alt="Docker Compose Manager"
+            />
             Docker Compose Manager
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
@@ -43,9 +50,6 @@ class Header extends Component {
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/containers/">Containers</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="#" onClick={this.handleSignOut}>
@@ -60,4 +64,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

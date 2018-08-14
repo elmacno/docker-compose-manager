@@ -26,4 +26,16 @@ export default class AuthService {
       throw error;
     }
   }
+
+  static async logOut() {
+    let response;
+    try {
+      let token = JSON.parse(Cookies.getItem('token'));
+      await Fetch('/sessions/signout', { method: 'POST', token: token.token });
+      Cookies.removeItem('token');
+      Cookies.removeItem('profile');
+    } catch (error) {
+      throw error;
+    }
+  }
 }
