@@ -38,25 +38,6 @@ class Home extends Component {
           <Container>
             <h2 className="text-center">Available Projects</h2>
             <ProjectsList projects={projects} />
-            {/* {this.props.runningContainers.length === 0 ? (
-              <div className="text-center">
-                <img src={dockerQuestion} className="d-block mx-auto" />
-                <p>
-                  There are no containers running.
-                </p>
-              </div>
-            ) : (
-              <div>
-                <h2 className="text-center">Running containers</h2>
-                <ContainersTable containers={this.props.runningContainers} projects={this.props.composeProjects}/>
-              </div>
-            )}
-            <h2 className="text-center">Compose projects</h2>
-            <ul>
-              {this.props.composeProjects.map(project => (
-                <li key={project.fullPath}>{project.fullPath}</li>
-              ))}
-            </ul> */}
           </Container>
         </main>
         <Footer />
