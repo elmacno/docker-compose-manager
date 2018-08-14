@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '../.env' });
-const app = require('./app');
+const { app, server } = require('./app');
 const debug = require('debug')('server:server');
 const http = require('http');
 
@@ -20,7 +20,6 @@ function normalizePort(val) {
 }
 
 debug.enabled = true;
-const server = http.createServer(app);
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 server.listen(port);

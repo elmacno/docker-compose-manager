@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -8,8 +8,7 @@ import ProjectLogs from './ProjectLogs';
 import ProjectTerminal from './ProjectTerminal';
 import './Project.css';
 
-const Project = ({match}) => {
-  console.log(match.url);
+const Project = ({ match }) => {
   return (
     <div className="project-page">
       <Header />

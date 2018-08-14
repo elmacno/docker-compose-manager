@@ -8,7 +8,7 @@ const projectLogs = (state = defaultState, action) => {
       return {
         ...state,
         info: action.payload
-      }
+      };
     case 'LOGS':
       return {
         ...state,
