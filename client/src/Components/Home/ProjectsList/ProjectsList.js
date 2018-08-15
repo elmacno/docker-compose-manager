@@ -8,43 +8,27 @@ import './ProjectsList.css';
 
 class ProjectsList extends Component {
   static propTypes = {
-    projects: PropTypes.arrayOf(PropTypes.any).isRequired,
-    expandedProjects: PropTypes.arrayOf(PropTypes.string),
-    collapseProject: PropTypes.func,
-    expandProject: PropTypes.func
+    projects: PropTypes.object.isRequired,
+    toggleProject: PropTypes.func
   };
 
   toggleProject = event => {
     let toggledProject = event.target.dataset.event;
-    let projectIsExpanded =
-      this.props.expandedProjects.filter(card => card === toggledProject)
-        .length === 1;
-    if (projectIsExpanded) {
-      this.props.collapseProject(toggledProject);
-    } else {
-      this.props.expandProject(toggledProject);
-    }
-  };
-
-  isProjectExpanded = currentProject => {
-    return (
-      this.props.expandedProjects.filter(project => project === currentProject)
-        .length === 1
-    );
+    this.props.toggleProject(toggledProject);
   };
 
   render() {
     const { projects } = this.props;
     return (
       <div className="projects-list">
-        {projects.map((project, index) => (
-          <Card key={index}>
+        {Object.keys(projects).map(project => (
+          <Card key={project}>
             <CardHeader onClick={this.toggleProject} data-event={project}>
               <img src={dockerLogo} alt={project} />
               {project}
             </CardHeader>
-            <Collapse isOpen={this.isProjectExpanded(project)}>
-              <ProjectInfo projectName={project} />
+            <Collapse isOpen={projects[project].expanded}>
+              <ProjectInfo project={project} />
             </Collapse>
           </Card>
         ))}

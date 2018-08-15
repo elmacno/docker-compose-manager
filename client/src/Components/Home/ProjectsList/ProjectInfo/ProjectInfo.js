@@ -9,7 +9,7 @@ import './ProjectInfo.css';
 
 class ProjectInfo extends Component {
   static propTypes = {
-    projectName: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
     setContainers: PropTypes.func,
     containers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -31,14 +31,14 @@ class ProjectInfo extends Component {
   };
 
   getRunningContainers = async () => {
-    const { projectName } = this.props;
+    const { project } = this.props;
     try {
-      let containers = await Fetch(`/projects/${projectName}/containers`);
+      let containers = await Fetch(`/projects/${project}/containers`);
       this.props.setContainers(containers);
     } catch (error) {
       let errorMessage = await error;
       console.error(
-        `Failed to get the running containers for project ${projectName}:`,
+        `Failed to get the running containers for project ${project}:`,
         errorMessage
       );
     }
@@ -46,39 +46,39 @@ class ProjectInfo extends Component {
 
   handleStart = async () => {
     console.log('in handleStart()');
-    const { projectName } = this.props;
+    const { project } = this.props;
     try {
-      await Fetch(`/projects/${projectName}/up`);
-    } catch(error) {
-      console.error(`Could not start ${projectName}:`, await error);
+      await Fetch(`/projects/${project}/up`);
+    } catch (error) {
+      console.error(`Could not start ${project}:`, await error);
     }
-  }
+  };
 
   handleRestart = async () => {
     console.log('in handleRestart()');
-    const { projectName } = this.props;
+    const { project } = this.props;
     try {
-      await Fetch(`/projects/${projectName}/restart`);
-    } catch(error) {
-      console.error(`Could not restart ${projectName}:`, await error);
+      await Fetch(`/projects/${project}/restart`);
+    } catch (error) {
+      console.error(`Could not restart ${project}:`, await error);
     }
-  }
+  };
 
   handleStop = async () => {
     console.log('in handleStop()');
-    const { projectName } = this.props;
+    const { project } = this.props;
     try {
-      await Fetch(`/projects/${projectName}/down`);
-    } catch(error) {
-      console.error(`Could not stop ${projectName}:`, await error);
+      await Fetch(`/projects/${project}/down`);
+    } catch (error) {
+      console.error(`Could not stop ${project}:`, await error);
     }
-  }
+  };
 
   componentDidMount() {
     let refresher = () => {
       this.getRunningContainers();
       setTimeout(refresher, 5000);
-    }
+    };
     refresher();
   }
 
@@ -97,9 +97,32 @@ class ProjectInfo extends Component {
         )}
         <div className="text-right">
           <ButtonGroup>
-            <Button className="container-action" color="success" disabled={hasContainers} onClick={this.handleStart}><FontAwesomeIcon icon="play-circle" /><span>Start</span></Button>
-            <Button className="container-action" disabled={!hasContainers} onClick={this.handleRestart}><FontAwesomeIcon icon="sync-alt" /><span>Restart</span></Button>
-            <Button className="container-action" color="danger" disabled={!hasContainers} onClick={this.handleStop}><FontAwesomeIcon icon="times" /><span>Stop</span></Button>
+            <Button
+              className="container-action"
+              color="success"
+              disabled={hasContainers}
+              onClick={this.handleStart}
+            >
+              <FontAwesomeIcon icon="play-circle" />
+              <span>Start</span>
+            </Button>
+            <Button
+              className="container-action"
+              disabled={!hasContainers}
+              onClick={this.handleRestart}
+            >
+              <FontAwesomeIcon icon="sync-alt" />
+              <span>Restart</span>
+            </Button>
+            <Button
+              className="container-action"
+              color="danger"
+              disabled={!hasContainers}
+              onClick={this.handleStop}
+            >
+              <FontAwesomeIcon icon="times" />
+              <span>Stop</span>
+            </Button>
           </ButtonGroup>
         </div>
       </CardBody>

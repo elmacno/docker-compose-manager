@@ -2,18 +2,24 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
-  return {
-    expandedProjects: state.home.projectsList.base.expandedProjects
-  };
+  return state;
 };
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch, ownProps) =>
   bindActionCreators(
     {
-      expandProject: project =>
-        dispatch({ type: 'EXPAND_PROJECT', payload: project }),
-      collapseProject: project =>
-        dispatch({ type: 'COLLAPSE_PROJECT', payload: project })
+      toggleProject: project => {
+        console.log('dispatching:', {
+          type: 'TOGGLE_PROJECT',
+          project,
+          payload: !ownProps.projects[project].expanded
+        });
+        return dispatch({
+          type: 'TOGGLE_PROJECT',
+          project,
+          payload: !ownProps.projects[project].expanded
+        });
+      }
     },
     dispatch
   );

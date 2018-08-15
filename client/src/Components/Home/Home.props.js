@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   return {
-    projects: state.home.base.projects
+    projects: state.home.projects
   };
 };
 

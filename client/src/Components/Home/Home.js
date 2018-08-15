@@ -11,7 +11,7 @@ import './Home.css';
 
 class Home extends Component {
   static propTypes = {
-    projects: PropTypes.arrayOf(PropTypes.string),
+    projects: PropTypes.object,
     setProjects: PropTypes.func
   };
 

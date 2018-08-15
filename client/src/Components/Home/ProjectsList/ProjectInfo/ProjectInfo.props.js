@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    containers:
-      state.home.projectsList.projectInfo.containers[ownProps.projectName]
+    containers: state.home.projects[ownProps.project].containers
   };
 };
 
@@ -14,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       setContainers: containers =>
         dispatch({
           type: `SET_CONTAINERS`,
-          projectName: ownProps.projectName,
+          project: ownProps.project,
           payload: containers
         })
     },

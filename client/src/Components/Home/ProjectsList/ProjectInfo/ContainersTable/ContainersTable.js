@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ContainerLogsModal from './ContainerLogsModal';
+import { addProps } from './ContainersTable.props';
 import './ContainersTable.css';
 
 class ContainersTable extends Component {
@@ -22,7 +24,21 @@ class ContainersTable extends Component {
         ),
         Names: PropTypes.arrayOf(PropTypes.string)
       })
-    ).isRequired
+    ).isRequired,
+    toggleStatsModal: PropTypes.func,
+    toggleLogsModal: PropTypes.func,
+    toggleTerminalModal: PropTypes.func
+  };
+
+  showStatsModal = container => {
+    this.props.toggleStatsModal(container, true);
+  };
+
+  showLogsModal = container => {
+    this.props.toggleLogsModal(container, true);
+  };
+  showTerminalModal = container => {
+    this.props.toggleTerminalModal(container, true);
   };
 
   render() {
@@ -80,14 +96,39 @@ class ContainersTable extends Component {
                 ))}
               </td>
               <td className="no-wrap">
-                <a href={`/projects/${container.Id}/stats`}>
-                  <div className="container-properties text-center"><FontAwesomeIcon icon="chart-bar" /></div>
+                <ContainerLogsModal
+                  project="hello-node"
+                  container={container.Id}
+                />
+                <a
+                  href="#"
+                  onClick={() => {
+                    this.showStatsModal(container.Id);
+                  }}
+                >
+                  <div className="container-properties text-center">
+                    <FontAwesomeIcon icon="chart-bar" />
+                  </div>
                 </a>
-                <a href={`/projects/${container.Id}/logs`}>
-                  <div className="container-properties text-center"><FontAwesomeIcon icon="file-alt" /></div>
+                <a
+                  href="#"
+                  onClick={() => {
+                    this.showLogsModal(container.Id);
+                  }}
+                >
+                  <div className="container-properties text-center">
+                    <FontAwesomeIcon icon="file-alt" />
+                  </div>
                 </a>
-                <a href={`/projects/${container.Id}/terminal`}>
-                  <div className="container-properties text-center"><FontAwesomeIcon icon="terminal" /></div>
+                <a
+                  href="#"
+                  onClick={() => {
+                    this.showTerminalModal(container.Id);
+                  }}
+                >
+                  <div className="container-properties text-center">
+                    <FontAwesomeIcon icon="terminal" />
+                  </div>
                 </a>
               </td>
             </tr>
@@ -98,4 +139,4 @@ class ContainersTable extends Component {
   }
 }
 
-export default ContainersTable;
+export default addProps(ContainersTable);

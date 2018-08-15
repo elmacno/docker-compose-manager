@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux';
 import projectInfo from './ProjectInfo/ProjectInfo.reducers';
 
 const defaultState = {
   expandedProjects: []
 };
 
-const base = (state = defaultState, action) => {
+const projectsList = (state = defaultState, action) => {
   switch (action.type) {
     case 'EXPAND_PROJECT':
       return {
@@ -25,11 +24,11 @@ const base = (state = defaultState, action) => {
         )
       };
     default:
-      return state;
+      return {
+        ...state,
+        projectInfo: projectInfo(state.projectInfo, action)
+      };
   }
 };
 
-export default combineReducers({
-  base,
-  projectInfo
-});
+export default projectsList;
