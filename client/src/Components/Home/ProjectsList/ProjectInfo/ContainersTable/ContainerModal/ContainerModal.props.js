@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       setIsOpen: value =>
         dispatch({
           type: 'TOGGLE_MODAL',
+          project: ownProps.project,
           container: ownProps.container,
           modal: ownProps.modalType,
           payload: value

@@ -45,7 +45,6 @@ class ProjectInfo extends Component {
   };
 
   handleStart = async () => {
-    console.log('in handleStart()');
     const { project } = this.props;
     try {
       await Fetch(`/projects/${project}/up`);
@@ -55,7 +54,6 @@ class ProjectInfo extends Component {
   };
 
   handleRestart = async () => {
-    console.log('in handleRestart()');
     const { project } = this.props;
     try {
       await Fetch(`/projects/${project}/restart`);
@@ -65,7 +63,6 @@ class ProjectInfo extends Component {
   };
 
   handleStop = async () => {
-    console.log('in handleStop()');
     const { project } = this.props;
     try {
       await Fetch(`/projects/${project}/down`);
@@ -83,14 +80,14 @@ class ProjectInfo extends Component {
   }
 
   render() {
-    const { containers } = this.props;
+    const { project, containers } = this.props;
     const hasContainers = containers && containers.length > 0;
     return (
       <CardBody className="project-info">
         {containers && containers.length !== 0 ? (
           <div>
             <CardTitle>Running containers</CardTitle>
-            <ContainersTable containers={containers} />
+            <ContainersTable project={project} containers={containers} />
           </div>
         ) : (
           <CardText>No running containers</CardText>

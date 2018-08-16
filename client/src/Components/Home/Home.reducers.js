@@ -1,5 +1,3 @@
-import projectsList from './ProjectsList/ProjectsList.reducers';
-
 const arrayToObjectKeys = array => {
   let result = {};
   array.forEach(key => {
@@ -35,11 +33,10 @@ const defaultContainerState = {};
 const container = (state = defaultContainerState, action) => {
   switch (action.type) {
     case 'TOGGLE_MODAL':
+    case 'SET_MODAL_LOGS':
       return {
         ...state,
-        [action.modal]: {
-          isOpen: action.payload
-        }
+        [action.modal]: modal(state[action.modal], action)
       };
     default:
       return state;
@@ -49,6 +46,7 @@ const container = (state = defaultContainerState, action) => {
 const containers = (state = [], action) => {
   switch (action.type) {
     case 'TOGGLE_MODAL':
+    case 'SET_MODAL_LOGS':
       return state.map(item => {
         return item.Id === action.container ? container(item, action) : item;
       });
@@ -62,6 +60,14 @@ const defaultProjectState = {
   containers: []
 };
 
+const mergeContainers = (current, incoming) => {
+  if (!current) return incoming;
+  return incoming.map(container => {
+    const previous = current.filter(c => c.Id === container.Id)[0];
+    return previous ? { ...previous, ...container } : container;
+  });
+};
+
 const project = (state = defaultProjectState, action) => {
   switch (action.type) {
     case 'TOGGLE_PROJECT':
@@ -72,9 +78,10 @@ const project = (state = defaultProjectState, action) => {
     case 'SET_CONTAINERS':
       return {
         ...state,
-        containers: action.payload
+        containers: mergeContainers(state.containers, action.payload)
       };
     case 'TOGGLE_MODAL':
+    case 'SET_MODAL_LOGS':
       return {
         ...state,
         containers: containers(state.containers, action)
@@ -88,6 +95,8 @@ const projects = (state = {}, action) => {
   switch (action.type) {
     case 'TOGGLE_PROJECT':
     case 'SET_CONTAINERS':
+    case 'TOGGLE_MODAL':
+    case 'SET_MODAL_LOGS':
       return {
         ...state,
         [action.project]: project(state[action.project], action)
@@ -110,6 +119,8 @@ const home = (state = defaultHomeState, action) => {
       };
     case 'TOGGLE_PROJECT':
     case 'SET_CONTAINERS':
+    case 'TOGGLE_MODAL':
+    case 'SET_MODAL_LOGS':
       return {
         ...state,
         projects: projects(state.projects, action)

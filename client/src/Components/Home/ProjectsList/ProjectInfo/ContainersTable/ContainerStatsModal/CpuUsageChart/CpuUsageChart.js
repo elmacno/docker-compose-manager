@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Fetch } from '../../../../Services';
+import { Fetch } from '../../../../../../../Services';
 import RealtimeLineChart from '../RealtimeLineChart';
 
 class CpuUsageChart extends Component {

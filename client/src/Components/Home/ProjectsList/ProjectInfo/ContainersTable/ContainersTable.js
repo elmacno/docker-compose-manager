@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ContainerStatsModal from './ContainerStatsModal';
 import ContainerLogsModal from './ContainerLogsModal';
+import ContainerTerminalModal from './ContainerTerminalModal';
 import { addProps } from './ContainersTable.props';
 import './ContainersTable.css';
 
 class ContainersTable extends Component {
   static propTypes = {
+    project: PropTypes.string.isRequired,
     containers: PropTypes.arrayOf(
       PropTypes.shape({
         Id: PropTypes.string.isRequired,
@@ -34,15 +37,16 @@ class ContainersTable extends Component {
     this.props.toggleStatsModal(container, true);
   };
 
-  showLogsModal = container => {
+  showLogsModal = async container => {
     this.props.toggleLogsModal(container, true);
   };
+
   showTerminalModal = container => {
     this.props.toggleTerminalModal(container, true);
   };
 
   render() {
-    const { containers } = this.props;
+    const { containers, project } = this.props;
     return (
       <Table hover responsive className="containers-table">
         <thead>
@@ -96,8 +100,16 @@ class ContainersTable extends Component {
                 ))}
               </td>
               <td className="no-wrap">
+                <ContainerStatsModal
+                  project={project}
+                  container={container.Id}
+                />
                 <ContainerLogsModal
-                  project="hello-node"
+                  project={project}
+                  container={container.Id}
+                />
+                <ContainerTerminalModal
+                  project={project}
                   container={container.Id}
                 />
                 <a

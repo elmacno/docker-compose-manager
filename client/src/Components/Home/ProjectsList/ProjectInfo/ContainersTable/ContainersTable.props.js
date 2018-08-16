@@ -9,6 +9,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       toggleStatsModal: (container, value) =>
         dispatch({
           type: 'TOGGLE_MODAL',
+          project: ownProps.project,
           container: container,
           modal: 'statsModal',
           payload: value
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       toggleLogsModal: (container, value) =>
         dispatch({
           type: 'TOGGLE_MODAL',
+          project: ownProps.project,
           container: container,
           modal: 'logsModal',
           payload: value
@@ -23,6 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       toggleTerminalModal: (container, value) =>
         dispatch({
           type: 'TOGGLE_MODAL',
+          project: ownProps.project,
           container: container,
           modal: 'terminalModal',
           payload: value

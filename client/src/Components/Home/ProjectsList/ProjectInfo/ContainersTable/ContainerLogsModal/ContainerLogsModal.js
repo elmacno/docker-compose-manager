@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ContainerModal from '../ContainerModal';
 import { Fetch } from '../../../../../../Services';
+import ContainerModal from '../ContainerModal';
 import { addProps } from './ContainerLogsModal.props';
 import './ContainerLogsModal.css';
 
 class ContainerLogsModal extends Component {
-  static defaultProps = {
-    modalType: 'logsModal'
-  };
-
   static propTypes = {
-    modalType: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
     container: PropTypes.string.isRequired,
     logs: PropTypes.string
   };
 
-  getContainerLogs = async () => {
+  handleOnOpened = async () => {
     const { container } = this.props;
     try {
       let response = await Fetch(`/containers/${container}/logs`);
@@ -29,21 +25,19 @@ class ContainerLogsModal extends Component {
     }
   };
 
-  async componentDidMount() {
-    await this.getContainerLogs();
-  }
-
   render() {
-    const { logs, container, project, modalType } = this.props;
+    const { logs, container, project } = this.props;
     return (
       <ContainerModal
-        modalType={modalType}
+        modalType="logsModal"
         project={project}
         container={container}
         title="Container Logs"
-        className="container-logs-modal"
+        onOpened={this.handleOnOpened}
       >
-        <pre>{logs}</pre>
+        <div className="container-logs-modal">
+          <pre>{logs}</pre>
+        </div>
       </ContainerModal>
     );
   }

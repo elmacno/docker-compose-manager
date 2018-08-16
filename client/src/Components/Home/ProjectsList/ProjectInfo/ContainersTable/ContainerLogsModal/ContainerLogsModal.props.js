@@ -1,5 +1,5 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state, ownProps) => {
   if (
@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
     )[0] ||
     !state.home.projects[ownProps.project].containers.filter(
       container => container.Id === ownProps.container
-    )[0][ownProps.modalType]
+    )[0]['logsModal']
   ) {
     return {
       logs: ''
@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     logs: state.home.projects[ownProps.project].containers.filter(
       container => container.Id === ownProps.container
-    )[0][ownProps.modalType].logs
+    )[0]['logsModal'].logs
   };
 };
 
@@ -27,9 +27,10 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     {
       addLogs: logs =>
         dispatch({
-          type: 'ADD_MODAL_LOGS',
+          type: 'SET_MODAL_LOGS',
+          project: ownProps.project,
           container: ownProps.container,
-          modal: ownProps.modalType,
+          modal: 'logsModal',
           payload: logs
         })
     },

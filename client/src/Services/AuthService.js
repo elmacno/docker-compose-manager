@@ -28,7 +28,6 @@ export default class AuthService {
   }
 
   static async logOut() {
-    let response;
     try {
       let token = JSON.parse(Cookies.getItem('token'));
       await Fetch('/sessions/signout', { method: 'POST', token: token.token });

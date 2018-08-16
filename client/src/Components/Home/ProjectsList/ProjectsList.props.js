@@ -8,18 +8,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) =>
   bindActionCreators(
     {
-      toggleProject: project => {
-        console.log('dispatching:', {
+      toggleProject: project =>
+        dispatch({
           type: 'TOGGLE_PROJECT',
           project,
           payload: !ownProps.projects[project].expanded
-        });
-        return dispatch({
-          type: 'TOGGLE_PROJECT',
-          project,
-          payload: !ownProps.projects[project].expanded
-        });
-      }
+        })
     },
     dispatch
   );
