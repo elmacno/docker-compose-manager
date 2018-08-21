@@ -3,11 +3,10 @@ const path = require('path');
 const _ = require('lodash');
 
 const componentName = process.argv[2];
-const addProps = process.argv[3] === 'with-props';
 const baseDir = process.env.INIT_CWD;
 const targetDir = path.join(baseDir, componentName);
 
-const createComponentDirectory = async name => {
+const createComponentDirectory = async () => {
   await new Promise((resolve, reject) => {
     fs.mkdir(targetDir, err => (err ? reject(err) : resolve()));
   });
@@ -29,9 +28,9 @@ const createComponentJs = async name => {
   await new Promise((resolve, reject) => {
     fs.writeFile(
       path.join(targetDir, filename),
-      `
-import React, { Component } from 'react';
-${addProps ? `import { addProps } from './${name}.props';` : ''}
+      `import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from './${name}.props';
 import './${name}.css';
 
 class ${name} extends Component {
@@ -44,7 +43,7 @@ class ${name} extends Component {
   }
 }
 
-export default ${addProps ? `addProps(${name})` : name};
+export default connect(mapStateToProps, mapDispatchToProps)(${name});
 `,
       err => (err ? reject(err) : resolve())
     );
@@ -71,9 +70,7 @@ const createComponentProps = async name => {
   await new Promise((resolve, reject) => {
     fs.writeFile(
       path.join(targetDir, filename),
-      `
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+      `import { bindActionCreators } from 'redux';
 
 const mapStateToProps = state => {
   return {
@@ -89,31 +86,11 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const addProps = ${name} => {
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(${name});
-};
-
-export { addProps };
-`,
-      err => (err ? reject(err) : resolve())
-    );
-  });
-};
-
-const createComponentReducers = async (name, addProps) => {
-  const filename = `${name}.reducers.js`;
-  await new Promise((resolve, reject) => {
-    fs.writeFile(
-      path.join(targetDir, filename),
-      `
 const defaultState = {
   prop: ''
 };
 
-const ${_.camelCase(name)} = (state = defaultState, action) => {
+const ${_.camelCase(name)}Reducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'PROP':
       return {
@@ -125,27 +102,23 @@ const ${_.camelCase(name)} = (state = defaultState, action) => {
   }
 };
 
-export default ${_.camelCase(name)};
+
+export { mapStateToProps, mapDispatchToProps, ${_.camelCase(name)}Reducer };
 `,
       err => (err ? reject(err) : resolve())
     );
   });
 };
 
-createComponentDirectory(componentName)
+createComponentDirectory()
   .then(() => {
     let promises = [
       createIndexJs(componentName),
       createComponentJs(componentName),
-      createComponentScss(componentName)
+      createComponentScss(componentName),
+      createComponentProps(componentName)
     ];
-    if (addProps) {
-      promises.concat([
-        createComponentProps(componentName),
-        createComponentReducers(componentName)
-      ]);
-    }
-    Promise.all();
+    Promise.all(promises);
   })
   .then(() => console.log(`Component ${componentName} created!`))
   .catch(error =>

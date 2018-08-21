@@ -1,5 +1,4 @@
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   return {
@@ -16,11 +15,18 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const addProps = AvatarModal => {
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AvatarModal);
+const defaultState = {};
+
+const avatarModalReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'TOGGLE_AVATAR_MODAL':
+      return {
+        ...state,
+        isOpen: action.payload
+      };
+    default:
+      return state;
+  }
 };
 
-export { addProps };
+export { mapStateToProps, mapDispatchToProps, avatarModalReducer };

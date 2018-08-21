@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { addProps } from './AvatarModal.props';
+import { mapStateToProps, mapDispatchToProps } from './AvatarModal.props';
 import './AvatarModal.css';
 
 class AvatarModal extends Component {
@@ -32,4 +33,7 @@ class AvatarModal extends Component {
   }
 }
 
-export default addProps(AvatarModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AvatarModal);

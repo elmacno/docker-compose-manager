@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addProps } from './Profile.props';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from './Profile.props';
 import Page from '../Page';
 import ProfileForm from './ProfileForm';
 import ProfileDetails from './ProfileDetails';
@@ -18,9 +19,12 @@ class Profile extends Component {
     setIsEditing: PropTypes.func
   };
 
-  handleSubmit = values => console.log(values);
+  handleSubmit = values => {
+    console.log(values);
+    this.handleToggleEditing();
+  };
 
-  handleToggleEditing = () => this.props.setIsEditing(true);
+  handleToggleEditing = () => this.props.setIsEditing(!this.props.isEditing);
 
   componentDidMount() {
     let user = Auth.user();
@@ -45,4 +49,7 @@ class Profile extends Component {
   }
 }
 
-export default addProps(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

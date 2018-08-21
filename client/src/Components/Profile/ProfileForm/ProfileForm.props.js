@@ -1,7 +1,20 @@
-import { connect } from 'react-redux';
+import { avatarModalReducer } from './AvatarModal';
 
-const addProps = ProfileForm => {
-  return connect()(ProfileForm);
+const mapStateToProps = () => {};
+const mapDispatchToProps = () => {};
+
+const defaultState = {};
+
+const profileFormReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'TOGGLE_AVATAR_MODAL':
+      return {
+        ...state,
+        avatarModal: avatarModalReducer(state.avatarModal, action)
+      };
+    default:
+      return state;
+  }
 };
 
-export { addProps };
+export { mapStateToProps, mapDispatchToProps, profileFormReducer };

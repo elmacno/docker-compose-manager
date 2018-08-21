@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'avataaars';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Row, Col, Form, FormGroup, Button } from 'reactstrap';
 import { Validators } from '../../../Helpers';
 import { FormField } from '../../Form';
-import { addProps } from './ProfileForm.props';
+import { mapStateToProps, mapDispatchToProps } from './ProfileForm.props';
 import './ProfileForm.css';
 
 class ProfileForm extends Component {
@@ -61,4 +62,9 @@ class ProfileForm extends Component {
 
 export default reduxForm({
   form: 'profile'
-})(addProps(ProfileForm));
+})(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ProfileForm)
+);
