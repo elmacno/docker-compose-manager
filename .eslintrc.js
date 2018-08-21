@@ -65,6 +65,7 @@ module.exports = {
 
     //Stylistic Issues
     camelcase: [2],
+    semi: [2],
     'func-names': [1],
     'no-inline-comments': [0],
     'no-lonely-if': [2],

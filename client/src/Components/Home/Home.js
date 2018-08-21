@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'reactstrap';
 import { Fetch } from '../../Services';
 import { addProps } from './Home.props';
-import Header from '../Header';
-import Footer from '../Footer';
+import Page from '../Page';
 import ProjectsList from './ProjectsList';
-//import dockerQuestion from '../../Assets/docker-question.svg';
 import './Home.css';
 
 class Home extends Component {
@@ -32,16 +29,10 @@ class Home extends Component {
   render() {
     const { projects } = this.props;
     return (
-      <div className="home-page">
-        <Header />
-        <main>
-          <Container>
-            <h2 className="text-center">Available Projects</h2>
-            <ProjectsList projects={projects} />
-          </Container>
-        </main>
-        <Footer />
-      </div>
+      <Page>
+        <h2 className="text-center">Available Projects</h2>
+        <ProjectsList projects={projects} />
+      </Page>
     );
   }
 }

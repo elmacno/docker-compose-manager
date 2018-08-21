@@ -5,6 +5,7 @@ import { store } from '../../Services/Store';
 import { AuthenticatedRoute } from '../../Helpers';
 import Login from '../Login';
 import Home from '../Home';
+import Profile from '../Profile';
 
 class App extends Component {
   render() {
@@ -12,8 +13,9 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/login" component={Login} />
+            <Route exact path="/login" component={Login} />
             <AuthenticatedRoute exact path="/" component={Home} />
+            <AuthenticatedRoute exact path="/profile" component={Profile} />
           </Switch>
         </BrowserRouter>
       </Provider>

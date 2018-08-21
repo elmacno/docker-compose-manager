@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
-import AuthService from '../Services/AuthService';
+import { Auth } from '../Services';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
-  const isLoggedIn = AuthService.isLoggedIn();
+  const isLoggedIn = Auth.isLoggedIn();
 
   return (
     <Route

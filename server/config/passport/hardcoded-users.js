@@ -1,16 +1,11 @@
 const LocalStrategy = require('passport-local').Strategy;
-
-const users = [
-  {
-    username: 'admin',
-    password: 'administrator',
-    rights: ['admin']
-  }
-];
+const { db } = require('../../services/db');
 
 class HardCodedUsersStrategy extends LocalStrategy {
   constructor() {
     super((username, password, done) => {
+      db.reload();
+      let users = db.getData('/users');
       let user = users.find(
         e => e.username === username && e.password === password
       );

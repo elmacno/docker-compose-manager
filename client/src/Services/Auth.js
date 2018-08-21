@@ -37,4 +37,8 @@ export default class AuthService {
       throw error;
     }
   }
+
+  static user() {
+    return JSON.parse(Cookies.getItem('profile'));
+  }
 }

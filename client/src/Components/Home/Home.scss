@@ -1,18 +1,2 @@
-@import '../../Styles/variables.scss';
-
-.home-page {
-  height: 100%;
-
-  main {
-    overflow: auto;
-    min-height: calc(100% - (#{$min-header-height} + #{$min-footer-height}));
-  }
-  .container {
-    h2 {
-      margin: 20px auto;
-    }
-    img {
-      max-width: 300px;
-    }
-  }
+.home {
 }

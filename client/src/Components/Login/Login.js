@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import LoginForm from './Login.form';
 import { addProps } from './Login.props';
-import { AuthService } from '../../Services';
+import { Auth } from '../../Services';
 import dockerLogo from '../../Assets/docker.svg';
 import './Login.css';
 
@@ -17,19 +17,15 @@ class Login extends Component {
 
   submit = async values => {
     try {
-      await AuthService.logIn(
-        values.username,
-        values.password,
-        values.remember
-      );
-      this.props.loggedIn(AuthService.isLoggedIn());
+      await Auth.logIn(values.username, values.password, values.remember);
+      this.props.loggedIn(Auth.isLoggedIn());
     } catch (error) {
       this.setState({ error: 'Invalid username or password' });
     }
   };
 
   componentDidMount() {
-    this.props.loggedIn(AuthService.isLoggedIn());
+    this.props.loggedIn(Auth.isLoggedIn());
   }
 
   render() {

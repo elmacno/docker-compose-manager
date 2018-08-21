@@ -16,6 +16,7 @@ const server = http.Server(app);
 withWebSockets(app, server);
 
 const { sessionsRouter } = require('./app/Sessions/Sessions.router');
+const { usersRouter } = require('./app/Users/Users.router');
 const { containersRouter } = require('./app/Containers/Containers.router');
 const { projectsRouter } = require('./app/Projects/Projects.router');
 
@@ -30,7 +31,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(passport.initialize());
 app.use('/sessions', sessionsRouter);
-app.use('/containers', /*requireAuthentication,*/ containersRouter);
+app.use('/users', requireAuthentication, usersRouter);
+app.use('/containers', containersRouter); // Authentication middleware is applied on each route individually.
 app.use('/projects', requireAuthentication, projectsRouter);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));

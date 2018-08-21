@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-
-const required = value =>
-  value || typeof value === 'number' ? undefined : 'Field is Required';
-
-const RenderField = ({ input, label, type }) => (
-  <div>
-    <Input {...input} placeholder={label} type={type} />
-  </div>
-);
-
-RenderField.propTypes = {
-  input: PropTypes.object,
-  label: PropTypes.string,
-  type: PropTypes.string
-};
+import { Form, FormGroup, Label, Button } from 'reactstrap';
+import { RenderField, Validators } from '../../Helpers';
 
 class LoginForm extends Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func,
+    invalid: PropTypes.bool,
+    pristine: PropTypes.bool,
+    submitting: PropTypes.bool
+  };
+
   render() {
     const { handleSubmit, invalid, pristine, submitting } = this.props;
     return (
@@ -32,7 +25,7 @@ class LoginForm extends Component {
             type="text"
             placeholder=""
             name="username"
-            validate={required}
+            validate={Validators.required}
           />
         </FormGroup>
         <FormGroup>
@@ -44,7 +37,7 @@ class LoginForm extends Component {
             type="password"
             placeholder=""
             name="password"
-            validate={required}
+            validate={Validators.required}
           />
         </FormGroup>
         <FormGroup check>
@@ -64,13 +57,6 @@ class LoginForm extends Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  handleSubmit: PropTypes.func,
-  invalid: PropTypes.bool,
-  pristine: PropTypes.bool,
-  submitting: PropTypes.bool
-};
 
 export default reduxForm({
   form: 'login'

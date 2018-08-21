@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import {
   Collapse,
@@ -7,13 +8,21 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap';
-import { AuthService } from '../../Services';
+import { Auth } from '../../Services';
 import dockerLogo from '../../Assets/docker.svg';
 import './Header.css';
 
 class Header extends Component {
+  static propTypes = {
+    history: PropTypes.any
+  };
+
   constructor(props) {
     super(props);
 
@@ -29,7 +38,7 @@ class Header extends Component {
   };
 
   handleSignOut = async () => {
-    await AuthService.logOut();
+    await Auth.logOut();
     this.props.history.push('/');
   };
 
@@ -51,11 +60,23 @@ class Header extends Component {
               <NavItem>
                 <NavLink href="/">Home</NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="#" onClick={this.handleSignOut}>
-                  Sign out
-                </NavLink>
-              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  {Auth.user().username}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem href="/profile">Profile</DropdownItem>
+                  {Auth.user().rights.includes('admin') ? (
+                    <DropdownItem href="/admin">Admin area</DropdownItem>
+                  ) : (
+                    ''
+                  )}
+                  <DropdownItem divider />
+                  <DropdownItem onClick={this.handleSignOut}>
+                    Sign out
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Navbar>
