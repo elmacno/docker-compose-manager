@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import LoginForm from './Login.form';
-import { addProps } from './Login.props';
 import { Auth } from '../../Services';
 import dockerLogo from '../../Assets/docker.svg';
 import './Login.css';
@@ -15,21 +14,28 @@ class Login extends Component {
     isLoggedIn: PropTypes.bool
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggisLoggedInedIn: false
+    };
+  }
+
   submit = async values => {
     try {
       await Auth.logIn(values.username, values.password, values.remember);
-      this.props.loggedIn(Auth.isLoggedIn());
+      this.setState({ isLoggedIn: Auth.isLoggedIn() });
     } catch (error) {
       this.setState({ error: 'Invalid username or password' });
     }
   };
 
   componentDidMount() {
-    this.props.loggedIn(Auth.isLoggedIn());
+    this.setState({ isLoggedIn: Auth.isLoggedIn() });
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn } = this.state;
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     return isLoggedIn ? (
       <Redirect to={from} />
@@ -64,4 +70,4 @@ class Login extends Component {
   }
 }
 
-export default addProps(Login);
+export default Login;
